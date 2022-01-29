@@ -6,3 +6,4 @@ venv/
 static
 docker-compose.txt
 docker-comp
+.env.prod
