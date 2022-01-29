@@ -1,0 +1,8 @@
+__pycache__/
+.env
+*.sqlite3
+venv/
+.env.prod
+static
+docker-compose.txt
+docker-comp

@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+
+    volumes:
+      - pgdb-data:/var/lib/postgresql/data
+
+    environment:
+      - POSTGRES_NAME=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+
+    ports:
+      - 5432:5432
+  
+  polling: 
+    build: .
+
+    command: python manage.py runserver 0.0.0.0:8000
+    # command: CMD gunicorn polling.wsgi:application --bind 0.0.0.0:8000
+    
+
+    volumes:
+      - .:/code
+
+    image: polling-image
+    container_name: polling-app
+    ports:
+      - 8000:8000
+
+    depends_on:
+      - db
+
+volumes:
+  pgdb-data:
+    driver: local
